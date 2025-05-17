@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Insert part into database
     $stmt = $connection->prepare("INSERT INTO Parts (part_name, part_number, brand, price, quantity, car_id, category, details, image_path, is_new_arrival) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssdisssi", $part_name, $part_number, $brand, $price, $quantity, $car_id, $category, $details, $image_path, $is_new_arrival);
+    $stmt->bind_param("sssdissssi", $part_name, $part_number, $brand, $price, $quantity, $car_id, $category, $details, $image_path, $is_new_arrival);
     
     if ($stmt->execute()) {
         $_SESSION['message'] = "✅ Part added successfully!";

@@ -158,13 +158,8 @@ while ($car = $car_options_result->fetch_assoc()) {
             display: block;
         }
         
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
         .btn {
-            padding: 8px 16px;
+            padding:4px 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -185,21 +180,21 @@ while ($car = $car_options_result->fetch_assoc()) {
         }
         
         .btn-edit {
-            background-color: #0275d8;
+            background-color: #089819;
             color: white;
         }
         
         .btn-edit:hover {
-            background-color: #025aa5;
+            background-color:rgb(48, 201, 66);
         }
         
         .btn-delete {
-            background-color: #d9534f;
+            background-color: #a7001b;
             color: white;
         }
         
         .btn-delete:hover {
-            background-color: #c9302c;
+            background-color:rgb(218, 31, 62);
         }
         
         .data-table {
@@ -219,12 +214,32 @@ while ($car = $car_options_result->fetch_assoc()) {
         .data-table td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .data-table .btn{
+            padding: 8px 16px;
+            line-height: 1;
+            font-size: 1rem;
+            width: 80px;
+            margin-right: 10px;
         }
         
         .data-table tr:hover {
             background-color: #f5f5f5;
         }
+
+        .data-table td.action-buttons{
+            vertical-align: middle;
+            padding:10px;
+        }
         
+        .data-table td.action-buttons :hover{
+            scale: 1.1;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
         .thumbnail {
             width: 80px;
             height: 80px;
@@ -424,8 +439,8 @@ while ($car = $car_options_result->fetch_assoc()) {
                             <?php while($car = $cars_result->fetch_assoc()): ?>
                                 <tr>
                                     <td>
-                                        <?php if(!empty($car['image_path']) && file_exists($car['image_path'])): ?>
-                                            <img src="<?php echo $car['image_path']; ?>" alt="<?php echo $car['brand'] . ' ' . $car['model']; ?>" class="thumbnail">
+                                        <?php if(!empty($part['image_path']) && file_exists("../" . $part['image_path'])): ?>
+                                            <img src="../<?php echo $part['image_path']; ?>" alt="<?php echo $part['part_name']; ?>" class="thumbnail">
                                         <?php else: ?>
                                             <div class="thumbnail" style="display:flex; align-items:center; justify-content:center; background:#eee;">No Image</div>
                                         <?php endif; ?>
@@ -453,6 +468,7 @@ while ($car = $car_options_result->fetch_assoc()) {
                 <h2>Add New Part</h2>
                 
                 <form action="process_part.php" method="POST" enctype="multipart/form-data">
+                    
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="part_name">Part Name:</label>

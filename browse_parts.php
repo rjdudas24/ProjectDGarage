@@ -1,5 +1,15 @@
 <?php
-// browse_parts.php
+// Start the session at the beginning
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit();
+}
+
+// User is logged in, proceed with the page
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +26,10 @@
             <div class="menu">
                 <a href="index.php">Home</a>
                 <a href="new_arrivals.php">New Arrivals</a>
+                <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
+                    <a href="admin_dashboard.php">Admin Dashboard</a>
+                <?php endif; ?>
+                <a href="logout.php">Logout</a>
             </div>
         </div>
 

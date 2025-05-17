@@ -112,6 +112,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         
         <div class="main-content">
+
+            <?php if(isset($_COOKIE['logout_message'])): ?>
+                <div class="message success-message">
+                    <?php echo htmlspecialchars($_COOKIE['logout_message']); ?>
+                    <?php setcookie('logout_message', '', time() - 3600, '/'); // clear the cookie after displaying ?>
+                </div>
+            <?php endif; ?>
             
             <?php if (!empty($message)) echo "<p class='message'>$message</p>"; ?>
             <form action="login.php" method="POST">

@@ -7,38 +7,58 @@ $message = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $account_type = $_POST['account_type'];
-
-    if ($account_type === 'admin') {
-        $stmt = $connection->prepare("SELECT id, password FROM Admins WHERE email = ?");
-    } else {
-        $stmt = $connection->prepare("SELECT id, password FROM Users WHERE email = ?");
-    }
-
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows === 1) {
-        $stmt->bind_result($id, $hashed_password);
-        $stmt->fetch();
-
+    
+    // First try to find the user in the Users table
+    $user_stmt = $connection->prepare("SELECT user_id, password FROM Users WHERE email = ?");
+    $user_stmt->bind_param("s", $email);
+    $user_stmt->execute();
+    $user_stmt->store_result();
+    
+    // Check if user found in Users table
+    if ($user_stmt->num_rows === 1) {
+        $user_stmt->bind_result($id, $hashed_password);
+        $user_stmt->fetch();
+        
         if (password_verify($password, $hashed_password)) {
             $_SESSION['user_id'] = $id;
-            $_SESSION['account_type'] = $account_type;
+            $_SESSION['account_type'] = 'user';
             $message = "✅ Login successful! Redirecting...";
-
-            // Redirect depending on user type
+            
             echo "<script>
                 setTimeout(function(){
-                    window.location.href = '" . ($account_type === 'admin' ? 'admin_dashboard.php' : 'index.php') . "';
+                    window.location.href = 'index.php';
                 }, 1500);
             </script>";
         } else {
             $message = "❌ Incorrect password.";
         }
     } else {
-        $message = "❌ Account not found.";
+        // If not found in Users, try in Admins table
+        $admin_stmt = $connection->prepare("SELECT admin_id, password FROM Admins WHERE email = ?");
+        $admin_stmt->bind_param("s", $email);
+        $admin_stmt->execute();
+        $admin_stmt->store_result();
+        
+        if ($admin_stmt->num_rows === 1) {
+            $admin_stmt->bind_result($id, $hashed_password);
+            $admin_stmt->fetch();
+            
+            if (password_verify($password, $hashed_password)) {
+                $_SESSION['user_id'] = $id;
+                $_SESSION['account_type'] = 'admin';
+                $message = "✅ Login successful! Redirecting...";
+                
+                echo "<script>
+                    setTimeout(function(){
+                        window.location.href = 'admin_dashboard.php';
+                    }, 1500);
+                </script>";
+            } else {
+                $message = "❌ Incorrect password.";
+            }
+        } else {
+            $message = "❌ Account not found.";
+        }
     }
 }
 ?>
@@ -47,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Login - Project D Garage</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         h2 {
@@ -59,28 +79,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             font-weight: bold;
             margin: 20px;
-            color: red;
+            color: <?php echo strpos($message, "✅") !== false ? "#089819" : "red"; ?>;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #555;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #a7001b;
+        }
+        .register-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #089819;
+            text-decoration: none;
+        }
+        .register-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <?php if (!empty($message)) echo "<p class='message'>$message</p>"; ?>
-    <form action="login.php" method="POST">
-        <h2>User / Admin Login</h2>
-
-        <label>Email:</label>
-        <input type="email" name="email" required>
-
-        <label>Password:</label>
-        <input type="password" name="password" required>
-
-        <label>Account Type:</label>
-        <select name="account_type" required>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-        </select>
-
-        <button type="submit">Login</button>
-    </form>
+    <div class="container">
+        <div class="sidebar">
+            <a href="index.php">
+                <img class="name-plate" src="./assets/nameplate.png" alt="Project D Garage">
+            </a>
+        </div>
+        
+        <div class="main-content">
+            
+            <?php if (!empty($message)) echo "<p class='message'>$message</p>"; ?>
+            <form action="login.php" method="POST">
+                <h2>Login to Project D Garage</h2>
+                
+                <label>Email:</label>
+                <input type="email" name="email" required>
+                
+                <label>Password:</label>
+                <input type="password" name="password" required>
+                
+                <button type="submit">Login</button>
+                
+                <a href="register.php" class="register-link">Don't have an account? Register here</a>
+                <a href="index.php" class="back-link">Back to Home</a>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

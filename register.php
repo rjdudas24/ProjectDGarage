@@ -50,38 +50,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <?php if (!empty($message)) echo "<p class='message'>$message</p>"; ?>
-    <form action="register.php" method="POST">
-        <h2>User / Admin Registration</h2>
+    <div class="container">
+        <div class="sidebar">
+            <a href="index.php">
+                <img class="name-plate" src="./assets/nameplate.png" alt="Project D Garage">
+            </a>
+        </div>
+        <div class="main-content">
+            
+            <?php if (!empty($message)) echo "<p class='message'>$message</p>"; ?>
+            <form action="register.php" method="POST">
+                <h2>User / Admin Registration</h2>
 
-        <label>First Name:</label>
-        <input type="text" name="first_name" required>
+                <label>First Name:</label>
+                <input type="text" name="first_name" required>
 
-        <label>Last Name:</label>
-        <input type="text" name="last_name" required>
+                <label>Last Name:</label>
+                <input type="text" name="last_name" required>
 
-        <label>Address:</label>
-        <input type="text" name="address" required>
+                <label>Address:</label>
+                <input type="text" name="address" required>
 
-        <label>Birthday:</label>
-        <input type="date" name="birthday" required>
+                <label>Birthday:</label>
+                <input type="date" name="birthday" required>
 
-        <label>Contact Number:</label>
-        <input type="text" name="contact_number" required>
+                <label>Contact Number:</label>
+                <input type="text" name="contact_number" required>
 
-        <label>Email:</label>
-        <input type="email" name="email" required>
+                <label>Email:</label>
+                <input type="email" name="email" required>
 
-        <label>Password:</label>
-        <input type="password" name="password" required>
+                <label>Password:</label>
+                <input type="password" name="password" required>
 
-        <label>Account Type:</label>
-        <select name="account_type" required>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-        </select>
+                <label>Account Type:</label>
+                <select name="account_type" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
 
-        <button type="submit" >Register</button>
-    </form>
+                <button type="submit" >Register</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

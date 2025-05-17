@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $car_id = !empty($_POST['car_id']) ? $_POST['car_id'] : null;
     $details = $_POST['details'];
     $is_new_arrival = isset($_POST['is_new_arrival']) ? $_POST['is_new_arrival'] : 0;
+    $category = $_POST['category'];
+    $details = $_POST['details'];
     
     // Handle image upload
     $image_path = null;
@@ -55,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Insert part into database
-    $stmt = $connection->prepare("INSERT INTO Parts (part_name, part_number, brand, price, quantity, car_id, details, image_path, is_new_arrival) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssdiissi", $part_name, $part_number, $brand, $price, $quantity, $car_id, $details, $image_path, $is_new_arrival);
+    $stmt = $connection->prepare("INSERT INTO Parts (part_name, part_number, brand, price, quantity, car_id, category, details, image_path, is_new_arrival) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssdisssi", $part_name, $part_number, $brand, $price, $quantity, $car_id, $category, $details, $image_path, $is_new_arrival);
     
     if ($stmt->execute()) {
         $_SESSION['message'] = "✅ Part added successfully!";

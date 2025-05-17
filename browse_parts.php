@@ -32,73 +32,73 @@
                 <div class="car-item">
                     <img class="car-part" src="bparts/brake pads.jpg" alt="Brake Pad">
                     <div class="car-name">Brake Pad Set</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=brake_pads" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/oil filter.jpeg" alt="Oil Filter">
                     <div class="car-name">Oil Filters</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=oil_filters" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/spark plug.jpg" alt="Spark Plug">
                     <div class="car-name">Spark Plugs</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=spark_plugs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/air filter.png" alt="Air Filter">
                     <div class="car-name">Air Filters</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=air_filters" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/headlight.jpg" alt="Headlight">
                     <div class="car-name">Headlight Bulbs</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=headlight_bulbs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/tailight.jpg" alt="Tailight">
                     <div class="car-name">Tailight Bulbs</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=tailight_bulbs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/dome light.jpg" alt="Cabin Light">
                     <div class="car-name">Cabin Light Bulbs</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=cabin_light_bulbs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/signal light.jpg" alt="Signal Light">
                     <div class="car-name">Signal Light Bulbs</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=signal_light_bulbs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/fuel filter.png" alt="Fuel Filter">
                     <div class="car-name">Fuel Filters</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=fuel_filters" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/rims.jpg" alt="Rims">
                     <div class="car-name">Rims</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=rims" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/tires.jpg" alt="Tires">
                     <div class="car-name">Tires</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=tires" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/tools.jpg" alt="Tools">
                     <div class="car-name">Tools</div>
-                    <button class="view-car-btn">View Stock</button>
+                    <a href="category_parts.php?category=tools" class="view-car-btn">View Stock</a>
                 </div>
 
             </div>

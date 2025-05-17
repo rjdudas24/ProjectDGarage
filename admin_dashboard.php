@@ -490,6 +490,26 @@ while ($car = $car_options_result->fetch_assoc()) {
                         </div>
                         
                         <div class="form-group">
+                            <label for="category">Category:</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select a category</option>
+                                <option value="brake_pads">Brake Pads</option>
+                                <option value="oil_filters">Oil Filters</option>
+                                <option value="spark_plugs">Spark Plugs</option>
+                                <option value="air_filters">Air Filters</option>
+                                <option value="headlight_bulbs">Headlight Bulbs</option>
+                                <option value="tailight_bulbs">Tailight Bulbs</option>
+                                <option value="cabin_light_bulbs">Cabin Light Bulbs</option>
+                                <option value="signal_light_bulbs">Signal Light Bulbs</option>
+                                <option value="fuel_filters">Fuel Filters</option>
+                                <option value="rims">Rims</option>
+                                <option value="tires">Tires</option>
+                                <option value="tools">Tools</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="part_image">Part Image:</label>
                             <input type="file" id="part_image" name="part_image" accept="image/*">
                         </div>

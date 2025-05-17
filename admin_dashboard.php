@@ -360,7 +360,6 @@ while ($car = $car_options_result->fetch_assoc()) {
                 <div class="tab active" onclick="openTab('parts')">Manage Parts</div>
                 <div class="tab" onclick="openTab('cars')">Manage Cars</div>
                 <div class="tab" onclick="openTab('add-part')">Add New Part</div>
-                <div class="tab" onclick="openTab('add-car')">Add New Car</div>
             </div>
 
             <!-- Parts Management Tab -->
@@ -545,77 +544,6 @@ while ($car = $car_options_result->fetch_assoc()) {
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Add Part</button>
-                </form>
-            </div>
-
-            <!-- Add Car Tab -->
-            <div id="add-car" class="tab-content">
-                <h2>Add New Car</h2>
-                
-                <form action="process_car.php" method="POST" enctype="multipart/form-data">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="brand">Brand:</label>
-                            <input type="text" id="brand" name="brand" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="model">Model:</label>
-                            <input type="text" id="model" name="model" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="year">Year:</label>
-                            <input type="number" id="year" name="year" min="1900" max="2099" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="msrp">MSRP ($):</label>
-                            <input type="number" id="msrp" name="msrp" step="0.01" min="0">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="engine">Engine:</label>
-                            <input type="text" id="engine" name="engine">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="power">Power (HP):</label>
-                            <input type="number" id="power" name="power" min="0">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="torque">Torque (Nm):</label>
-                            <input type="number" id="torque" name="torque" min="0">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="weight">Weight (lbs):</label>
-                            <input type="number" id="weight" name="weight" min="0">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="top_speed">Top Speed (mph):</label>
-                            <input type="number" id="top_speed" name="top_speed" min="0" step="0.1">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="zero_to_sixty">0-60 mph (seconds):</label>
-                            <input type="number" id="zero_to_sixty" name="zero_to_sixty" min="0" step="0.01">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="quarter_mile">Quarter Mile (seconds):</label>
-                            <input type="number" id="quarter_mile" name="quarter_mile" min="0" step="0.01">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="car_image">Car Image:</label>
-                            <input type="file" id="car_image" name="car_image" accept="image/*">
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Add Car</button>
                 </form>
             </div>
         </div>

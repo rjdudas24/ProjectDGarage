@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             font-weight: bold;
             margin: 20px;
-            color: #089819;
+            color:rgb(5, 238, 32);
         }
     </style>
 </head>
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </a>
         </div>
         <div class="main-content">
-            
+
             <?php if (!empty($message)) echo "<p class='message'>$message</p>"; ?>
             <form action="register.php" method="POST">
                 <h2>User / Admin Registration</h2>

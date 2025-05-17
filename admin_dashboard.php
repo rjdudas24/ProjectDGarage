@@ -327,9 +327,6 @@ while ($car = $car_options_result->fetch_assoc()) {
 
         <div class="main-content">
             <div class="header">
-                <div style="margin-right: auto; font-weight: bold; color: #a7001b;">
-                    Admin Dashboard
-                </div>
                 <div class="profile-icon">👤</div>
             </div>
 

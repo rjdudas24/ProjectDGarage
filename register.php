@@ -55,6 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="index.php">
                 <img class="name-plate" src="./assets/nameplate.png" alt="Project D Garage">
             </a>
+            <div class="menu">
+                <a href="login.php">BACK TO LOGIN</a>
+            </div>
         </div>
         <div class="main-content">
 

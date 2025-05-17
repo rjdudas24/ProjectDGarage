@@ -8,7 +8,7 @@
     <div class="container">
         <div class="sidebar">
             <a href="index.php">
-                <img class="name-plate" src="nameplate.png" alt="Project D Garage">
+                <img class="name-plate" src="./assets/nameplate.png" alt="Project D Garage">
             </a>
             <div class="menu">
                 <a href="index.php">Home</a>

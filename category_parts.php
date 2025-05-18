@@ -2,6 +2,12 @@
 require 'db_connection.php';
 session_start();
 
+// Check if user is logged in and is an admin
+if (!isset($_SESSION['user_id']) || $_SESSION['account_type'] !== 'admin') {
+    header("Location: login.php");
+    exit();
+}
+
 // Get category from URL parameter and validate it
 $category = isset($_GET['category']) ? $_GET['category'] : '';
 $valid_categories = [
@@ -180,14 +186,10 @@ $result = $stmt->get_result();
                 <a href="index.php">Home</a>
                 <a href="browse_parts.php">Browse Parts</a>
                 <a href="new_arrivals.php">New Arrivals</a>
-                <?php if(isset($_SESSION['user_id']) && $_SESSION['account_type'] === 'admin'): ?>
-                <a href="admin_dashboard.php">Admin Dashboard</a>
+                <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
+                    <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>
-                <?php if(isset($_SESSION['user_id'])): ?>
                 <a href="logout.php">Logout</a>
-                <?php else: ?>
-                <a href="login.php">Login</a>
-                <?php endif; ?>
             </div>
         </div>
 

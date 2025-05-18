@@ -50,19 +50,19 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
 
                 <div class="car-item">
-                    <img class="car-part" src="bparts/oil filter.jpeg" alt="Oil Filter">
+                    <img class="car-part" src="bparts/oil filter.jpg" alt="Oil Filter">
                     <div class="car-name">Oil Filters</div>
                     <a href="category_parts.php?category=oil_filters" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
-                    <img class="car-part" src="bparts/spark plug.jpg" alt="Spark Plug">
+                    <img class="car-part" src="bparts/spark plug.png" alt="Spark Plug">
                     <div class="car-name">Spark Plugs</div>
                     <a href="category_parts.php?category=spark_plugs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
-                    <img class="car-part" src="bparts/air filter.png" alt="Air Filter">
+                    <img class="car-part" src="bparts/air filter.jpg" alt="Air Filter">
                     <div class="car-name">Air Filters</div>
                     <a href="category_parts.php?category=air_filters" class="view-car-btn">View Stock</a>
                 </div>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
 
                 <div class="car-item">
-                    <img class="car-part" src="bparts/tailight.jpg" alt="Tailight">
+                    <img class="car-part" src="bparts/taillight.jpg" alt="Tailight">
                     <div class="car-name">Tailight Bulbs</div>
                     <a href="category_parts.php?category=tailight_bulbs" class="view-car-btn">View Stock</a>
                 </div>
@@ -92,7 +92,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
 
                 <div class="car-item">
-                    <img class="car-part" src="bparts/fuel filter.png" alt="Fuel Filter">
+                    <img class="car-part" src="bparts/fuel filter.jpg" alt="Fuel Filter">
                     <div class="car-name">Fuel Filters</div>
                     <a href="category_parts.php?category=fuel_filters" class="view-car-btn">View Stock</a>
                 </div>

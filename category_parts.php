@@ -59,6 +59,8 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <title><?php echo htmlspecialchars($category_name); ?> - Project D Garage</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="add_to_cart_styles.css">
+    <script src="add-to-cart.js"></script>
     <style>
         .parts-container {
             display: flex;
@@ -240,7 +242,9 @@ $result = $stmt->get_result();
                             }
                             ?>
                             
-                            <button class="add-to-cart-btn" <?php echo $part['quantity'] <= 0 ? 'disabled' : ''; ?>>
+                            <button class="add-to-cart-btn" 
+                                    data-part-id="<?php echo $part['part_id']; ?>" 
+                                    <?php echo $part['quantity'] <= 0 ? 'disabled' : ''; ?>>
                                 <?php echo $part['quantity'] > 0 ? 'Add to Cart' : 'Out of Stock'; ?>
                             </button>
                         </div>

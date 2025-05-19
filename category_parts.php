@@ -196,7 +196,7 @@ $result = $stmt->get_result();
         <div class="main-content">
             <div class="header">
                 <button class="header-btn">Search</button>
-                <button class="header-btn">Cart</button>
+                <a href="cart.php" class="header-btn">View Cart</a>
                 <div class="profile-icon">👤</div>
             </div>
 

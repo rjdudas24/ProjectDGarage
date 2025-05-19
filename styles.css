@@ -50,6 +50,14 @@ html, body {
     margin-right: 0px;
     padding: 10px;
     cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.header-btn:hover {
+    background: #bbb;
+    color: #000000;
+    transition: all 0.3s;
 }
 
 .profile-icon {

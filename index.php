@@ -9,6 +9,9 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Include database connection
+require_once 'db_connection.php';
+
 // User is logged in, proceed with the page
 ?>
 
@@ -36,13 +39,15 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="car-list">
                 <?php foreach ($sidebarCars as $carKey): ?>
-                    <div class="car-item" style="background: linear-gradient(to bottom, #f5f5f5, #626e7a);">
-                        <h3 class="car-name"><?php echo $cars[$carKey]['name']; ?></h3>
-                        <a href="index.php?car=<?php echo $carKey; ?>">
-                            <img src="<?php echo $cars[$carKey]['image']; ?>" alt="<?php echo $cars[$carKey]['name']; ?>">
-                            <button class="view-car-btn">VIEW CAR</button>
-                        </a>
-                    </div>
+                    <?php if ($carKey !== $selectedCarKey): // Don't show currently selected car in sidebar ?>
+                        <div class="car-item" style="background: linear-gradient(to bottom, #f5f5f5, #626e7a);">
+                            <h3 class="car-name"><?php echo $cars[$carKey]['name']; ?></h3>
+                            <a href="index.php?car=<?php echo $carKey; ?>">
+                                <img src="<?php echo $cars[$carKey]['image']; ?>" alt="<?php echo $cars[$carKey]['name']; ?>">
+                                <button class="view-car-btn">VIEW CAR</button>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -59,8 +64,27 @@ if (!isset($_SESSION['user_id'])) {
                     <h1><?php echo $carDetails['name']; ?></h1>
                     <img src="<?php echo $carDetails['image']; ?>" alt="<?php echo $carDetails['name']; ?>">
                     <div class="car-nav-buttons">
-                        <button class="nav-btn">Back</button>
-                        <button class="nav-btn">Next</button>
+                        <?php
+                        // Find previous and next car keys
+                        $prevKey = null;
+                        $nextKey = null;
+                        
+                        foreach ($carKeys as $index => $key) {
+                            if ($key === $selectedCarKey) {
+                                // Find previous car (or wrap to the end)
+                                $prevIndex = ($index > 0) ? $index - 1 : count($carKeys) - 1;
+                                $prevKey = $carKeys[$prevIndex];
+                                
+                                // Find next car (or wrap to the beginning)
+                                $nextIndex = ($index < count($carKeys) - 1) ? $index + 1 : 0;
+                                $nextKey = $carKeys[$nextIndex];
+                                
+                                break;
+                            }
+                        }
+                        ?>
+                        <a href="index.php?car=<?php echo $prevKey; ?>"><button class="nav-btn">Back</button></a>
+                        <a href="index.php?car=<?php echo $nextKey; ?>"><button class="nav-btn">Next</button></a>
                     </div>
                 </div>
             </div>

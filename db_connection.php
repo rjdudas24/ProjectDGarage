@@ -2,7 +2,7 @@
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$db = 'project_D';
+$db = 'project_d_garage';
 
 $connection = new mysqli($host, $user, $pass, $db);
 

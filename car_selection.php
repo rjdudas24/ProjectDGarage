@@ -1,72 +1,84 @@
 <?php
-// define car details
-$cars = [
-    'nissan-gtr' => [
-        'name' => '2016 Nissan GTR R35',
-        'image' => './assets/nissan-gtr.png',
-        'msrp' => '$115,000',
-        'miles' => '10,000',
-        'year' => '2016',
-        'engine' => '3.8L V6',
-        'power' => '565 Hp',
-        'torque' => '467 Nm',
-        'weight' => '3,800 lbs',
-        'top_speed' => '196 mph',
-        'zero_to_sixty' => '2.9 s',
-        'quarter_mile' => '11.2 s'
-    ],
-    'ferrari-488' => [
-        'name' => '2019 Ferrari 488',
-        'image' => './assets/ferrari-488.png',
-        'msrp' => '$250,000',
-        'miles' => '5,000',
-        'year' => '2019',
-        'engine' => '3.9L V8',
-        'power' => '661 Hp',
-        'torque' => '561 Nm',
-        'weight' => '3,250 lbs',
-        'top_speed' => '205 mph',
-        'zero_to_sixty' => '3.0 s',
-        'quarter_mile' => '10.5 s'
-    ],
-    'corvette-zr1' => [
-        'name' => '2019 Corvette ZR1',
-        'image' => './assets/corvette-zr1.png',
-        'msrp' => '$120,000',
-        'miles' => '2,000',
-        'year' => '2019',
-        'engine' => '6.2L V8',
-        'power' => '755 Hp',
-        'torque' => '715 Nm',
-        'weight' => '3,500 lbs',
-        'top_speed' => '212 mph',
-        'zero_to_sixty' => '2.85 s',
-        'quarter_mile' => '10.6 s'
-    ],
-    'porsche-911' => [
-        'name' => 'Porsche 911 GT3 RS',
-        'image' => './assets/porsche-911.png',
-        'msrp' => '$241,300',
-        'miles' => '15,000',
-        'year' => '2023',
-        'engine' => '4.0L Flat 6',
-        'power' => '518 Hp',
-        'torque' => '470 Nm',
-        'weight' => '3,957 lbs',
-        'top_speed' => '184 mph',
-        'zero_to_sixty' => '3.0 s',
-        'quarter_mile' => '10.9 s'
-    ]
-];
+// Include database connection
+require_once 'db_connection.php';
 
-// selected car from query parameter
-$selectedCar = isset($_GET['car']) ? $_GET['car'] : 'porsche-911'; // default
+// Query to get all cars from the database
+$query = "SELECT * FROM Cars ORDER BY brand, model";
+$result = $connection->query($query);
 
-// selected car details
-$carDetails = isset($cars[$selectedCar]) ? $cars[$selectedCar] : $cars['porsche-911'];
+// Initialize empty cars array
+$cars = [];
 
-// list of car keys for sidebar
+// Process query results
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Create a unique key for each car (using car_id)
+        $carKey = 'car-' . $row['car_id'];
+        
+        // Format MSRP with dollar sign and commas
+        $formattedMSRP = '$' . number_format($row['msrp'], 0, '.', ',');
+        
+        // Generate name combining brand and model
+        $carName = $row['year'] . ' ' . $row['brand'] . ' ' . $row['model'];
+        
+        // Populate the cars array
+        $cars[$carKey] = [
+            'name' => $carName,
+            'image' => $row['image_path'],
+            'msrp' => $formattedMSRP,
+            'miles' => isset($row['miles']) ? number_format($row['miles'], 0, '.', ',') : '0', // Adding miles if available
+            'year' => $row['year'],
+            'engine' => $row['engine'],
+            'power' => $row['power'] . ' Hp',
+            'torque' => $row['torque'] . ' Nm',
+            'weight' => number_format($row['weight'], 0, '.', ',') . ' lbs',
+            'top_speed' => $row['top_speed'] . ' mph',
+            'zero_to_sixty' => $row['zero_to_sixty'] . ' s',
+            'quarter_mile' => $row['quarter_mile'] . ' s'
+        ];
+    }
+}
+
+// Handle case where no cars are found
+if (empty($cars)) {
+    // Add a default "No cars available" entry
+    $cars['no-cars'] = [
+        'name' => 'No Cars Available',
+        'image' => './assets/default-car.png',
+        'msrp' => 'N/A',
+        'miles' => 'N/A',
+        'year' => 'N/A',
+        'engine' => 'N/A',
+        'power' => 'N/A',
+        'torque' => 'N/A',
+        'weight' => 'N/A',
+        'top_speed' => 'N/A',
+        'zero_to_sixty' => 'N/A',
+        'quarter_mile' => 'N/A'
+    ];
+}
+
+// Selected car from query parameter
+$selectedCarKey = isset($_GET['car']) ? $_GET['car'] : '';
+
+// If the selected car doesn't exist in our array, use the first car as default
+if (!isset($cars[$selectedCarKey])) {
+    // Get the first car key
+    $carKeys = array_keys($cars);
+    $selectedCarKey = reset($carKeys); // First key in the array
+}
+
+// Selected car details
+$carDetails = $cars[$selectedCarKey];
+
+// List of car keys for sidebar
 $carKeys = array_keys($cars);
-$currentCarIndex = array_search($selectedCar, $carKeys);
-$sidebarCars = array_merge(array_slice($carKeys, $currentCarIndex, 1), array_slice($carKeys, 0, $currentCarIndex), array_slice($carKeys, $currentCarIndex + 1));
+$currentCarIndex = array_search($selectedCarKey, $carKeys);
+
+// Reorder the sidebar cars to show the selected car first, then the rest
+$sidebarCars = array_merge(
+    [$selectedCarKey], // Selected car first
+    array_slice($carKeys, 0, $currentCarIndex), // Cars before selected car
+    array_slice($carKeys, $currentCarIndex + 1) // Cars after selected car
+);
 ?>

@@ -59,7 +59,7 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <title><?php echo htmlspecialchars($category_name); ?> - Project D Garage</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="add_to_cart_styles.css">
+    <link rel="stylesheet" href="add-to-cart-styles.css">
     <script src="add-to-cart.js"></script>
     <style>
         .parts-container {

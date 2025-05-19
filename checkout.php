@@ -186,6 +186,16 @@ if (!$order_placed) {
     $user_query->bind_param("i", $user_id);
     $user_query->execute();
     $user_data = $user_query->get_result()->fetch_assoc();
+    
+    // Create full_name from first_name and last_name if needed
+    if (isset($user_data['first_name']) && isset($user_data['last_name'])) {
+        $user_data['full_name'] = $user_data['first_name'] . ' ' . $user_data['last_name'];
+    }
+    
+    // Map contact_number to phone if needed
+    if (isset($user_data['contact_number']) && !isset($user_data['phone'])) {
+        $user_data['phone'] = $user_data['contact_number'];
+    }
 }
 ?>
 

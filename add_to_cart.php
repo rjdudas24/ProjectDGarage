@@ -1,4 +1,5 @@
 <?php
+// Fixed add_to_cart.php
 require 'db_connection.php';
 session_start();
 
@@ -13,6 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['part_id']) && isset($
     $user_id = $_SESSION['user_id'];
     $part_id = $_POST['part_id'];
     $quantity = intval($_POST['quantity']);
+    
+    // DEBUG: Log values for troubleshooting
+    error_log("Adding to cart - User ID: $user_id, Part ID: $part_id, Quantity: $quantity");
+    
+    // Verify the user actually exists in the database
+    $user_check = $connection->prepare("SELECT user_id FROM Users WHERE user_id = ?");
+    $user_check->bind_param("i", $user_id);
+    $user_check->execute();
+    $user_result = $user_check->get_result();
+    
+    if ($user_result->num_rows === 0) {
+        error_log("User ID $user_id does not exist in Users table");
+        echo json_encode(['success' => false, 'message' => 'Invalid user account. Please log out and log in again.']);
+        exit();
+    }
     
     // Validate quantity
     if ($quantity <= 0) {
@@ -70,20 +86,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['part_id']) && isset($
                 'message' => 'Cart updated! Added ' . $quantity . ' more ' . htmlspecialchars($part_data['part_name']) . ' to your cart.'
             ]);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error updating cart']);
+            error_log("Error updating cart: " . $connection->error);
+            echo json_encode(['success' => false, 'message' => 'Error updating cart: ' . $connection->error]);
         }
     } else {
-        // Insert new cart item
-        $insert_stmt = $connection->prepare("INSERT INTO Cart (user_id, part_id, quantity) VALUES (?, ?, ?)");
-        $insert_stmt->bind_param("iii", $user_id, $part_id, $quantity);
-        
-        if ($insert_stmt->execute()) {
+        // Insert new cart item - try catch block to catch any errors
+        try {
+            $insert_stmt = $connection->prepare("INSERT INTO Cart (user_id, part_id, quantity) VALUES (?, ?, ?)");
+            $insert_stmt->bind_param("iii", $user_id, $part_id, $quantity);
+            
+            if ($insert_stmt->execute()) {
+                echo json_encode([
+                    'success' => true, 
+                    'message' => htmlspecialchars($part_data['part_name']) . ' added to cart!'
+                ]);
+            } else {
+                throw new Exception($connection->error);
+            }
+        } catch (Exception $e) {
+            error_log("Failed to add to cart: " . $e->getMessage());
             echo json_encode([
-                'success' => true, 
-                'message' => htmlspecialchars($part_data['part_name']) . ' added to cart!'
+                'success' => false, 
+                'message' => 'Error adding item to cart: ' . $e->getMessage()
             ]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Error adding item to cart']);
         }
     }
 } else {

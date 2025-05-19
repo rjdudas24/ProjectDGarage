@@ -172,6 +172,7 @@ $shipping_fee = 0; // Will be calculated after subtotal is known
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         
         .summary-row {

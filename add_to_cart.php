@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['part_id']) && isset($
     
     if ($user_result->num_rows === 0) {
         error_log("User ID $user_id does not exist in Users table");
-        echo json_encode(['success' => false, 'message' => 'Invalid user account. Please log out and log in again.']);
+        echo json_encode(['success' => false, 'message' => 'Invalid ACCOUNT TYPE. Please log out and log in again.']);
         exit();
     }
     

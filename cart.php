@@ -279,6 +279,11 @@ $shipping_fee = 0; // Will be calculated after subtotal is known
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        .cart-form{
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
     </style>
 </head>
 <body>
@@ -314,7 +319,7 @@ $shipping_fee = 0; // Will be calculated after subtotal is known
             
             <?php if($cart_result->num_rows > 0): ?>
                 <div class="cart-container">
-                    <form method="post" action="cart.php">
+                    <form method="post" action="cart.php" class="cart-form">
                         <table class="cart-table">
                             <thead>
                                 <tr>

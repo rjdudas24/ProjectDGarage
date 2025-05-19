@@ -16,18 +16,18 @@ $order_id = null;
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     // Get user information
-    $name = mysqli_real_escape_string($connection, $_POST['full_name']);
-    $email = mysqli_real_escape_string($connection, $_POST['email']);
-    $phone = mysqli_real_escape_string($connection, $_POST['phone']);
-    $address = mysqli_real_escape_string($connection, $_POST['address']);
+    $street = mysqli_real_escape_string($connection, $_POST['address']);
     $city = mysqli_real_escape_string($connection, $_POST['city']);
     $state = mysqli_real_escape_string($connection, $_POST['state']);
     $zipcode = mysqli_real_escape_string($connection, $_POST['zipcode']);
+    $contact_number = mysqli_real_escape_string($connection, $_POST['phone']);
     $payment_method = mysqli_real_escape_string($connection, $_POST['payment_method']);
     
+    // Combine address components into one field
+    $shipping_address = $street . ", " . $city . ", " . $state . " " . $zipcode;
+    
     // Validate basic input
-    if (empty($name) || empty($email) || empty($phone) || empty($address) || empty($city) || 
-        empty($state) || empty($zipcode) || empty($payment_method)) {
+    if (empty($street) || empty($city) || empty($state) || empty($zipcode) || empty($contact_number) || empty($payment_method)) {
         $message = "❌ Please fill out all required fields";
     } else {
         // Start transaction
@@ -83,17 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             
             $total = $subtotal + $shipping_fee;
             
-            // Create order
+            // Create order - modified to match the orders table schema
             $order_stmt = $connection->prepare("
-                INSERT INTO Orders (user_id, order_date, total_amount, shipping_fee, status, 
-                                  shipping_name, shipping_email, shipping_phone, shipping_address, 
-                                  shipping_city, shipping_state, shipping_zipcode, payment_method)
-                VALUES (?, NOW(), ?, ?, 'pending', ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO Orders (user_id, order_date, status, shipping_address, contact_number, subtotal, shipping_fee, total_amount, payment_method)
+                VALUES (?, NOW(), 'pending', ?, ?, ?, ?, ?, ?)
             ");
             
-            $order_stmt->bind_param("iddsssssssss", 
-                $user_id, $total, $shipping_fee, $name, $email, $phone, $address, 
-                $city, $state, $zipcode, $payment_method
+            $order_stmt->bind_param("issddds", 
+                $user_id, $shipping_address, $contact_number, $subtotal, $shipping_fee, $total, $payment_method
             );
             
             $order_stmt->execute();
@@ -102,11 +99,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             // Add order items
             foreach ($items as $item) {
                 $item_stmt = $connection->prepare("
-                    INSERT INTO OrderItems (order_id, part_id, quantity, price, total)
+                    INSERT INTO Order_Items (order_id, part_id, quantity, price, total)
                     VALUES (?, ?, ?, ?, ?)
                 ");
                 
-                $item_stmt->bind_param("iidd", 
+                $item_stmt->bind_param("iiidd", 
                     $order_id, $item['part_id'], $item['quantity'], $item['price'], $item['total']
                 );
                 
@@ -186,11 +183,6 @@ if (!$order_placed) {
     $user_query->bind_param("i", $user_id);
     $user_query->execute();
     $user_data = $user_query->get_result()->fetch_assoc();
-    
-    // Create full_name from first_name and last_name if needed
-    if (isset($user_data['first_name']) && isset($user_data['last_name'])) {
-        $user_data['full_name'] = $user_data['first_name'] . ' ' . $user_data['last_name'];
-    }
     
     // Map contact_number to phone if needed
     if (isset($user_data['contact_number']) && !isset($user_data['phone'])) {
@@ -351,6 +343,7 @@ if (!$order_placed) {
             margin-bottom: 20px;
             border-radius: 5px;
             font-weight: bold;
+            margin-top: 10px;
         }
         
         .success-message {
@@ -461,19 +454,8 @@ if (!$order_placed) {
                     <div class="checkout-form">
                         <h2 class="section-title">Shipping Information</h2>
                         <form method="post" action="checkout.php">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="full_name">Full Name *</label>
-                                    <input type="text" id="full_name" name="full_name" value="<?php echo isset($user_data['full_name']) ? htmlspecialchars($user_data['full_name']) : ''; ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email Address *</label>
-                                    <input type="email" id="email" name="email" value="<?php echo isset($user_data['email']) ? htmlspecialchars($user_data['email']) : ''; ?>" required>
-                                </div>
-                            </div>
-                            
                             <div class="form-group">
-                                <label for="phone">Phone Number *</label>
+                                <label for="phone">Contact Number *</label>
                                 <input type="tel" id="phone" name="phone" value="<?php echo isset($user_data['phone']) ? htmlspecialchars($user_data['phone']) : ''; ?>" required>
                             </div>
                             

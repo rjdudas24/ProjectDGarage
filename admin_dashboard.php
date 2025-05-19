@@ -512,10 +512,10 @@ while ($car = $car_options_result->fetch_assoc()) {
                                 <option value="oil_filters">Oil Filters</option>
                                 <option value="spark_plugs">Spark Plugs</option>
                                 <option value="air_filters">Air Filters</option>
-                                <option value="headlight_bulbs">Headlight Bulbs</option>
-                                <option value="tailight_bulbs">Tailight Bulbs</option>
-                                <option value="cabin_light_bulbs">Cabin Light Bulbs</option>
-                                <option value="signal_light_bulbs">Signal Light Bulbs</option>
+                                <option value="headlight_bulbs">Headlights</option>
+                                <option value="tailight_bulbs">Tailights</option>
+                                <option value="suspensions">Suspensions</option>
+                                <option value="signal_light_bulbs">Signal Lights</option>
                                 <option value="fuel_filters">Fuel Filters</option>
                                 <option value="rims">Rims</option>
                                 <option value="tires">Tires</option>
@@ -529,13 +529,13 @@ while ($car = $car_options_result->fetch_assoc()) {
                             <input type="file" id="part_image" name="part_image" accept="image/*">
                         </div>
                         
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="is_new_arrival">Mark as New Arrival:</label>
                             <select id="is_new_arrival" name="is_new_arrival">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
-                        </div>
+                        </div> -->
                         
                         <div class="form-group">
                             <label for="details">Details/Description:</label>

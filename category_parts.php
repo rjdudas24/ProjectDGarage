@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['account_type'] !== 'admin') {
 $category = isset($_GET['category']) ? $_GET['category'] : '';
 $valid_categories = [
     'brake_pads', 'oil_filters', 'spark_plugs', 'air_filters', 
-    'headlight_bulbs', 'tailight_bulbs', 'cabin_light_bulbs',
+    'headlight_bulbs', 'tailight_bulbs', 'suspensions',
     'signal_light_bulbs', 'fuel_filters', 'rims', 'tires', 'tools', 'other'
 ];
 
@@ -29,7 +29,7 @@ $category_display_names = [
     'air_filters' => 'Air Filters',
     'headlight_bulbs' => 'Headlight Bulbs',
     'tailight_bulbs' => 'Tailight Bulbs',
-    'cabin_light_bulbs' => 'Cabin Light Bulbs',
+    'suspensions' => 'Suspensions',
     'signal_light_bulbs' => 'Signal Light Bulbs',
     'fuel_filters' => 'Fuel Filters',
     'rims' => 'Rims',

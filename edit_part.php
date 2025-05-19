@@ -42,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $car_id = !empty($_POST['car_id']) ? $_POST['car_id'] : null;
     $category = $_POST['category'];
     $details = $_POST['details'];
-    $is_new_arrival = $_POST['is_new_arrival'];
     
     // Handle image upload if new image is provided
     $image_path = $part['image_path']; // Default to existing image path
@@ -318,10 +317,10 @@ while ($car = $car_options_result->fetch_assoc()) {
                             <option value="oil_filters" <?php echo ($part['category'] == 'oil_filters') ? 'selected' : ''; ?>>Oil Filters</option>
                             <option value="spark_plugs" <?php echo ($part['category'] == 'spark_plugs') ? 'selected' : ''; ?>>Spark Plugs</option>
                             <option value="air_filters" <?php echo ($part['category'] == 'air_filters') ? 'selected' : ''; ?>>Air Filters</option>
-                            <option value="headlight_bulbs" <?php echo ($part['category'] == 'headlight_bulbs') ? 'selected' : ''; ?>>Headlight Bulbs</option>
-                            <option value="tailight_bulbs" <?php echo ($part['category'] == 'tailight_bulbs') ? 'selected' : ''; ?>>Tailight Bulbs</option>
-                            <option value="cabin_light_bulbs" <?php echo ($part['category'] == 'cabin_light_bulbs') ? 'selected' : ''; ?>>Cabin Light Bulbs</option>
-                            <option value="signal_light_bulbs" <?php echo ($part['category'] == 'signal_light_bulbs') ? 'selected' : ''; ?>>Signal Light Bulbs</option>
+                            <option value="headlight_bulbs" <?php echo ($part['category'] == 'headlight_bulbs') ? 'selected' : ''; ?>>Headlights</option>
+                            <option value="tailight_bulbs" <?php echo ($part['category'] == 'tailight_bulbs') ? 'selected' : ''; ?>>Tailights</option>
+                            <option value="suspensions" <?php echo ($part['category'] == 'suspensions') ? 'selected' : ''; ?>>Suspensions</option>
+                            <option value="signal_light_bulbs" <?php echo ($part['category'] == 'signal_light_bulbs') ? 'selected' : ''; ?>>Signal Lights</option>
                             <option value="fuel_filters" <?php echo ($part['category'] == 'fuel_filters') ? 'selected' : ''; ?>>Fuel Filters</option>
                             <option value="rims" <?php echo ($part['category'] == 'rims') ? 'selected' : ''; ?>>Rims</option>
                             <option value="tires" <?php echo ($part['category'] == 'tires') ? 'selected' : ''; ?>>Tires</option>
@@ -341,13 +340,13 @@ while ($car = $car_options_result->fetch_assoc()) {
                         <?php endif; ?>
                     </div>
                     
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="is_new_arrival">Mark as New Arrival:</label>
                         <select id="is_new_arrival" name="is_new_arrival">
                             <option value="0" <?php echo ($part['is_new_arrival'] == 0) ? 'selected' : ''; ?>>No</option>
                             <option value="1" <?php echo ($part['is_new_arrival'] == 1) ? 'selected' : ''; ?>>Yes</option>
                         </select>
-                    </div>
+                    </div> -->
                     
                     <div class="form-group">
                         <label for="details">Details/Description:</label>

@@ -69,25 +69,25 @@ if (!isset($_SESSION['user_id'])) {
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/headlight.jpg" alt="Headlight">
-                    <div class="car-name">Headlight Bulbs</div>
+                    <div class="car-name">Headlights</div>
                     <a href="category_parts.php?category=headlight_bulbs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
                     <img class="car-part" src="bparts/taillight.jpg" alt="Tailight">
-                    <div class="car-name">Tailight Bulbs</div>
+                    <div class="car-name">Tailights</div>
                     <a href="category_parts.php?category=tailight_bulbs" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
-                    <img class="car-part" src="bparts/dome light.jpg" alt="Cabin Light">
-                    <div class="car-name">Cabin Light Bulbs</div>
-                    <a href="category_parts.php?category=cabin_light_bulbs" class="view-car-btn">View Stock</a>
+                    <img class="car-part" src="bparts/suspension.jpg" alt="Suspension">
+                    <div class="car-name">Suspensions</div>
+                    <a href="category_parts.php?category=suspensions" class="view-car-btn">View Stock</a>
                 </div>
 
                 <div class="car-item">
-                    <img class="car-part" src="bparts/signal light.jpg" alt="Signal Light">
-                    <div class="car-name">Signal Light Bulbs</div>
+                    <img class="car-part" src="bparts/signal light.jpg" alt="Signal Lights">
+                    <div class="car-name">Signal Lights</div>
                     <a href="category_parts.php?category=signal_light_bulbs" class="view-car-btn">View Stock</a>
                 </div>
 

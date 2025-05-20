@@ -429,7 +429,7 @@ if (!$order_placed) {
         <div class="main-content">
             <div class="header">
                 <button class="header-btn">Search</button>
-                <a href="cart.php" class="header-btn">Cart</a>
+                <a href="cart.php" class="header-btn">View Cart</a>
                 <div class="profile-icon">👤</div>
             </div>
 
@@ -455,6 +455,16 @@ if (!$order_placed) {
                         <h2 class="section-title">Shipping Information</h2>
                         <form method="post" action="checkout.php">
                             <div class="form-group">
+                                <label for="fullname">Full Name *</label>
+                                <input type="text" id="fullname" name="fullname" value="<?php echo isset($user_data['first_name']) && isset($user_data['last_name']) ? htmlspecialchars($user_data['first_name'] . ' ' . $user_data['last_name']) : ''; ?>" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" value="<?php echo isset($user_data['email']) ? htmlspecialchars($user_data['email']) : ''; ?>" readonly>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="phone">Contact Number *</label>
                                 <input type="tel" id="phone" name="phone" value="<?php echo isset($user_data['phone']) ? htmlspecialchars($user_data['phone']) : ''; ?>" required>
                             </div>
@@ -470,11 +480,11 @@ if (!$order_placed) {
                                     <input type="text" id="city" name="city" value="<?php echo isset($user_data['city']) ? htmlspecialchars($user_data['city']) : ''; ?>" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="state">State/Province *</label>
+                                    <label for="state">State *</label>
                                     <input type="text" id="state" name="state" value="<?php echo isset($user_data['state']) ? htmlspecialchars($user_data['state']) : ''; ?>" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="zipcode">ZIP/Postal Code *</label>
+                                    <label for="zipcode">ZIP Code *</label>
                                     <input type="text" id="zipcode" name="zipcode" value="<?php echo isset($user_data['zipcode']) ? htmlspecialchars($user_data['zipcode']) : ''; ?>" required>
                                 </div>
                             </div>

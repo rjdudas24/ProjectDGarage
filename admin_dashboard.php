@@ -336,6 +336,7 @@ while ($car = $car_options_result->fetch_assoc()) {
                 <a href="index.php">Home</a>
                 <a href="browse_parts.php">Browse Parts</a>
                 <a href="new_arrivals.php">New Arrivals</a>
+                <a href="orders.php">Orders</a>
                 <a href="logout.php">Logout</a>
             </div>
         </div>

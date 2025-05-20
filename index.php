@@ -35,6 +35,7 @@ require_once 'db_connection.php';
                 <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
                     <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>
+                <a href="orders.php">Orders</a>
                 <a href="logout.php">Logout</a>
             </div>
             <div class="car-list">

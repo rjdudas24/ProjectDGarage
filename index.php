@@ -96,7 +96,6 @@ require_once 'db_connection.php';
                 <div class="info-left">
                     <p>MSRP</p>
                     <h3><?php echo $carDetails['msrp']; ?></h3>
-                    <p>Miles: <span class="spec-data"><?php echo $carDetails['miles']; ?></span></p>
                     <p>Year: <span class="spec-data"><?php echo $carDetails['year']; ?></span></p>
                 </div>
                 <div class="info-center">

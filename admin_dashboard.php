@@ -8,6 +8,32 @@ if (!isset($_SESSION['user_id']) || $_SESSION['account_type'] !== 'admin') {
     exit();
 }
 
+
+function get_display_image_path($path) {
+    // If empty path, return default image
+    if (empty($path)) {
+        return './assets/default-car.png';
+    }
+    
+    // If path already exists as stored, return it
+    if (file_exists($path)) {
+        return $path;
+    }
+    
+    // If path exists with "../" prefix (relative path issue), use that
+    if (file_exists("../" . $path)) {
+        return "../" . $path;
+    }
+    
+    // If path exists without "../" prefix, use that
+    $stripped_path = ltrim($path, './');
+    if (file_exists($stripped_path)) {
+        return $stripped_path;
+    }
+    
+    // If file doesn't exist anywhere, return default
+    return './assets/default-car.png';
+}
 // Handle part deletion if requested
 if (isset($_GET['delete_part']) && is_numeric($_GET['delete_part'])) {
     $part_id = $_GET['delete_part'];
@@ -440,11 +466,8 @@ while ($car = $car_options_result->fetch_assoc()) {
                             <?php while($car = $cars_result->fetch_assoc()): ?>
                                 <tr>
                                     <td>
-                                        <?php if(!empty($car['image_path']) && file_exists("../" . $car['image_path'])): ?>
-                                            <img src="../<?php echo $car['image_path']; ?>" alt="<?php echo $car['model']; ?>" class="thumbnail">
-                                        <?php else: ?>
-                                            <div class="thumbnail" style="display:flex; align-items:center; justify-content:center; background:#eee;">No Image</div>
-                                        <?php endif; ?>
+                                        <?php $display_path = get_display_image_path($car['image_path']);?>
+                                        <img src="<?php echo $display_path; ?>" alt="<?php echo $car['model']; ?>" class="thumbnail">
                                     </td>
                                     <td><?php echo htmlspecialchars($car['brand']); ?></td>
                                     <td><?php echo htmlspecialchars($car['model']); ?></td>

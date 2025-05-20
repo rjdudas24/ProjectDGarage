@@ -237,6 +237,32 @@ while ($car = $car_options_result->fetch_assoc()) {
         .action-buttons {
             margin-top: 20px;
         }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #666;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-link:hover {
+            color: #a7001b;
+        }
+
+        .form-container {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-title {
+            color: #a7001b;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
     </style>
 </head>
 <body>
@@ -260,8 +286,10 @@ while ($car = $car_options_result->fetch_assoc()) {
                 <div class="profile-icon">👤</div>
             </div>
 
-            <div class="page-header">
-                <h1>Edit Part</h1>
+            <a href="admin_dashboard.php" class="back-link">← Back to Admin Dashboard</a>
+
+            <div class="form-container">
+                <h1 class="form-title">Edit Part</h1>
                 <p>Update details for part: <?php echo htmlspecialchars($part['part_name']); ?></p>
                 
                 <?php if(!empty($message)): ?>
@@ -269,97 +297,97 @@ while ($car = $car_options_result->fetch_assoc()) {
                         <?php echo $message; ?>
                     </div>
                 <?php endif; ?>
+
+                <form action="edit_part.php?id=<?php echo $part_id; ?>" method="POST" enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="part_name">Part Name:</label>
+                            <input type="text" id="part_name" name="part_name" value="<?php echo htmlspecialchars($part['part_name']); ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="part_number">Part Number:</label>
+                            <input type="text" id="part_number" name="part_number" value="<?php echo htmlspecialchars($part['part_number']); ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="brand">Brand:</label>
+                            <input type="text" id="brand" name="brand" value="<?php echo htmlspecialchars($part['brand']); ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="price">Price ($):</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0" value="<?php echo $part['price']; ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quantity">Quantity in Stock:</label>
+                            <input type="number" id="quantity" name="quantity" min="0" value="<?php echo $part['quantity']; ?>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="car_id">Compatible Car (optional):</label>
+                            <select id="car_id" name="car_id">
+                                <option value="">Universal (fits all cars)</option>
+                                <?php foreach($car_options as $id => $name): ?>
+                                    <option value="<?php echo $id; ?>" <?php echo ($part['car_id'] == $id) ? 'selected' : ''; ?>>
+                                        <?php echo htmlspecialchars($name); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select a category</option>
+                                <option value="brake_pads" <?php echo ($part['category'] == 'brake_pads') ? 'selected' : ''; ?>>Brake Pads</option>
+                                <option value="oil_filters" <?php echo ($part['category'] == 'oil_filters') ? 'selected' : ''; ?>>Oil Filters</option>
+                                <option value="spark_plugs" <?php echo ($part['category'] == 'spark_plugs') ? 'selected' : ''; ?>>Spark Plugs</option>
+                                <option value="air_filters" <?php echo ($part['category'] == 'air_filters') ? 'selected' : ''; ?>>Air Filters</option>
+                                <option value="headlight_bulbs" <?php echo ($part['category'] == 'headlight_bulbs') ? 'selected' : ''; ?>>Headlights</option>
+                                <option value="tailight_bulbs" <?php echo ($part['category'] == 'tailight_bulbs') ? 'selected' : ''; ?>>Tailights</option>
+                                <option value="suspensions" <?php echo ($part['category'] == 'suspensions') ? 'selected' : ''; ?>>Suspensions</option>
+                                <option value="signal_light_bulbs" <?php echo ($part['category'] == 'signal_light_bulbs') ? 'selected' : ''; ?>>Signal Lights</option>
+                                <option value="fuel_filters" <?php echo ($part['category'] == 'fuel_filters') ? 'selected' : ''; ?>>Fuel Filters</option>
+                                <option value="rims" <?php echo ($part['category'] == 'rims') ? 'selected' : ''; ?>>Rims</option>
+                                <option value="tires" <?php echo ($part['category'] == 'tires') ? 'selected' : ''; ?>>Tires</option>
+                                <option value="tools" <?php echo ($part['category'] == 'tools') ? 'selected' : ''; ?>>Tools</option>
+                                <option value="other" <?php echo ($part['category'] == 'other') ? 'selected' : ''; ?>>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="part_image">Part Image:</label>
+                            <input type="file" id="part_image" name="part_image" accept="image/*">
+                            <?php if(!empty($part['image_path']) && file_exists($part['image_path'])): ?>
+                                <p>Current image:</p>
+                                <img src="<?php echo $part['image_path']; ?>" alt="Current part image" class="current-image">
+                            <?php else: ?>
+                                <p>No image currently available</p>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                            <label for="is_new_arrival">Mark as New Arrival:</label>
+                            <select id="is_new_arrival" name="is_new_arrival">
+                                <option value="0" <?php echo ($part['is_new_arrival'] == 0) ? 'selected' : ''; ?>>No</option>
+                                <option value="1" <?php echo ($part['is_new_arrival'] == 1) ? 'selected' : ''; ?>>Yes</option>
+                            </select>
+                        </div> -->
+                        
+                        <div class="form-group">
+                            <label for="details">Details/Description:</label>
+                            <textarea id="details" name="details"><?php echo htmlspecialchars($part['details']); ?></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button type="submit" class="btn btn-primary">Update Part</button>
+                        <a href="admin_dashboard.php" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
             </div>
-
-            <form action="edit_part.php?id=<?php echo $part_id; ?>" method="POST" enctype="multipart/form-data">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="part_name">Part Name:</label>
-                        <input type="text" id="part_name" name="part_name" value="<?php echo htmlspecialchars($part['part_name']); ?>" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="part_number">Part Number:</label>
-                        <input type="text" id="part_number" name="part_number" value="<?php echo htmlspecialchars($part['part_number']); ?>" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="brand">Brand:</label>
-                        <input type="text" id="brand" name="brand" value="<?php echo htmlspecialchars($part['brand']); ?>" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="price">Price ($):</label>
-                        <input type="number" id="price" name="price" step="0.01" min="0" value="<?php echo $part['price']; ?>" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="quantity">Quantity in Stock:</label>
-                        <input type="number" id="quantity" name="quantity" min="0" value="<?php echo $part['quantity']; ?>" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="car_id">Compatible Car (optional):</label>
-                        <select id="car_id" name="car_id">
-                            <option value="">Universal (fits all cars)</option>
-                            <?php foreach($car_options as $id => $name): ?>
-                                <option value="<?php echo $id; ?>" <?php echo ($part['car_id'] == $id) ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($name); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <select id="category" name="category" required>
-                            <option value="">Select a category</option>
-                            <option value="brake_pads" <?php echo ($part['category'] == 'brake_pads') ? 'selected' : ''; ?>>Brake Pads</option>
-                            <option value="oil_filters" <?php echo ($part['category'] == 'oil_filters') ? 'selected' : ''; ?>>Oil Filters</option>
-                            <option value="spark_plugs" <?php echo ($part['category'] == 'spark_plugs') ? 'selected' : ''; ?>>Spark Plugs</option>
-                            <option value="air_filters" <?php echo ($part['category'] == 'air_filters') ? 'selected' : ''; ?>>Air Filters</option>
-                            <option value="headlight_bulbs" <?php echo ($part['category'] == 'headlight_bulbs') ? 'selected' : ''; ?>>Headlights</option>
-                            <option value="tailight_bulbs" <?php echo ($part['category'] == 'tailight_bulbs') ? 'selected' : ''; ?>>Tailights</option>
-                            <option value="suspensions" <?php echo ($part['category'] == 'suspensions') ? 'selected' : ''; ?>>Suspensions</option>
-                            <option value="signal_light_bulbs" <?php echo ($part['category'] == 'signal_light_bulbs') ? 'selected' : ''; ?>>Signal Lights</option>
-                            <option value="fuel_filters" <?php echo ($part['category'] == 'fuel_filters') ? 'selected' : ''; ?>>Fuel Filters</option>
-                            <option value="rims" <?php echo ($part['category'] == 'rims') ? 'selected' : ''; ?>>Rims</option>
-                            <option value="tires" <?php echo ($part['category'] == 'tires') ? 'selected' : ''; ?>>Tires</option>
-                            <option value="tools" <?php echo ($part['category'] == 'tools') ? 'selected' : ''; ?>>Tools</option>
-                            <option value="other" <?php echo ($part['category'] == 'other') ? 'selected' : ''; ?>>Other</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="part_image">Part Image:</label>
-                        <input type="file" id="part_image" name="part_image" accept="image/*">
-                        <?php if(!empty($part['image_path']) && file_exists($part['image_path'])): ?>
-                            <p>Current image:</p>
-                            <img src="<?php echo $part['image_path']; ?>" alt="Current part image" class="current-image">
-                        <?php else: ?>
-                            <p>No image currently available</p>
-                        <?php endif; ?>
-                    </div>
-                    
-                    <!-- <div class="form-group">
-                        <label for="is_new_arrival">Mark as New Arrival:</label>
-                        <select id="is_new_arrival" name="is_new_arrival">
-                            <option value="0" <?php echo ($part['is_new_arrival'] == 0) ? 'selected' : ''; ?>>No</option>
-                            <option value="1" <?php echo ($part['is_new_arrival'] == 1) ? 'selected' : ''; ?>>Yes</option>
-                        </select>
-                    </div> -->
-                    
-                    <div class="form-group">
-                        <label for="details">Details/Description:</label>
-                        <textarea id="details" name="details"><?php echo htmlspecialchars($part['details']); ?></textarea>
-                    </div>
-                </div>
-                
-                <div class="action-buttons">
-                    <button type="submit" class="btn btn-primary">Update Part</button>
-                    <a href="admin_dashboard.php" class="btn btn-secondary">Cancel</a>
-                </div>
-            </form>
         </div>
     </div>
 </body>

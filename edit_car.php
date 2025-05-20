@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Update car in database
     $update_stmt = $connection->prepare("UPDATE Cars SET brand = ?, model = ?, year = ?, msrp = ?, engine = ?, power = ?, torque = ?, weight = ?, top_speed = ?, zero_to_sixty = ?, quarter_mile = ?, image_path = ? WHERE car_id = ?");
-    $update_stmt->bind_param("ssidsiiiidds", $brand, $model, $year, $msrp, $engine, $power, $torque, $weight, $top_speed, $zero_to_sixty, $quarter_mile, $image_path, $car_id);
+    $update_stmt->bind_param("ssisiiiiddssi", $brand, $model, $year, $msrp, $engine, $power, $torque, $weight, $top_speed, $zero_to_sixty, $quarter_mile, $image_path, $car_id);
     
     if ($update_stmt->execute()) {
         $message = "✅ Car updated successfully!";

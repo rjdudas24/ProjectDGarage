@@ -439,8 +439,8 @@ while ($car = $car_options_result->fetch_assoc()) {
                             <?php while($car = $cars_result->fetch_assoc()): ?>
                                 <tr>
                                     <td>
-                                        <?php if(!empty($part['image_path']) && file_exists("../" . $part['image_path'])): ?>
-                                            <img src="../<?php echo $part['image_path']; ?>" alt="<?php echo $part['part_name']; ?>" class="thumbnail">
+                                        <?php if(!empty($car['image_path']) && file_exists("../" . $car['image_path'])): ?>
+                                            <img src="../<?php echo $car['image_path']; ?>" alt="<?php echo $car['model']; ?>" class="thumbnail">
                                         <?php else: ?>
                                             <div class="thumbnail" style="display:flex; align-items:center; justify-content:center; background:#eee;">No Image</div>
                                         <?php endif; ?>

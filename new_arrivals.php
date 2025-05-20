@@ -184,6 +184,7 @@ $category_display_names = [
             <div class="menu">
                 <a href="index.php">Home</a>
                 <a href="browse_parts.php">Browse Parts</a>
+                <a href="orders.php">Orders</a>
                 <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
                     <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>

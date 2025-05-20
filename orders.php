@@ -32,7 +32,7 @@ if ($is_admin && isset($_POST['update_status']) && isset($_POST['order_id']) && 
 if ($is_admin) {
     // Admin sees all orders
     $orders_query = "
-        SELECT o.order_id, o.user_id, u.username, o.order_date, o.status, 
+        SELECT o.order_id, o.user_id, CONCAT(u.first_name, ' ', u.last_name) AS customer_name, o.order_date, o.status, 
                o.shipping_address, o.contact_number, o.subtotal, o.shipping_fee, 
                o.total_amount, o.payment_method
         FROM Orders o
@@ -60,12 +60,12 @@ if ($is_admin) {
 // Function to get order items for a specific order
 function getOrderItems($connection, $order_id) {
     $items_query = "
-        SELECT oi.order_item_id, oi.part_id, oi.quantity, oi.price, oi.total,
+        SELECT oi.item_id, oi.part_id, oi.quantity, oi.price, oi.total,
                p.part_name, p.brand, p.part_number
         FROM Order_Items oi
         JOIN Parts p ON oi.part_id = p.part_id
         WHERE oi.order_id = ?
-        ORDER BY oi.order_item_id
+        ORDER BY oi.item_id
     ";
     
     $items_stmt = $connection->prepare($items_query);
@@ -393,7 +393,6 @@ function getOrderItems($connection, $order_id) {
                 <a href="index.php">Home</a>
                 <a href="browse_parts.php">Browse Parts</a>
                 <a href="new_arrivals.php">New Arrivals</a>
-                <a href="orders.php" class="active">My Orders</a>
                 <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
                     <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>
@@ -459,7 +458,7 @@ function getOrderItems($connection, $order_id) {
                             <?php if($is_admin): ?>
                             <div class="user-info">
                                 <h3>Customer Information</h3>
-                                <p><strong>Username:</strong> <?php echo htmlspecialchars($order['username']); ?></p>
+                                <p><strong>Customer Name:</strong> <?php echo htmlspecialchars($order['customer_name']); ?></p>
                                 <p><strong>User ID:</strong> <?php echo $order['user_id']; ?></p>
                             </div>
                             <?php endif; ?>

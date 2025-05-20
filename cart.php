@@ -296,6 +296,7 @@ $shipping_fee = 0; // Will be calculated after subtotal is known
                 <a href="index.php">Home</a>
                 <a href="browse_parts.php">Browse Parts</a>
                 <a href="new_arrivals.php">New Arrivals</a>
+                <a href="orders.php">Orders</a>
                 <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
                     <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>

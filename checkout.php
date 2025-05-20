@@ -419,6 +419,7 @@ if (!$order_placed) {
                 <a href="index.php">Home</a>
                 <a href="browse_parts.php">Browse Parts</a>
                 <a href="new_arrivals.php">New Arrivals</a>
+                <a href="orders.php">Orders</a>
                 <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
                     <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>
@@ -447,6 +448,7 @@ if (!$order_placed) {
                     <p>Your order has been placed successfully and is being processed.</p>
                     <p>Your order number is: <span class="order-id">#<?php echo str_pad($order_id, 6, '0', STR_PAD_LEFT); ?></span></p>
                     <p>We've sent a confirmation email with your order details.</p>
+                    <a href="orders.php" class="continue-btn">View Orders</a>
                     <a href="browse_parts.php" class="continue-btn">Continue Shopping</a>
                 </div>
             <?php elseif(isset($cart_result) && $cart_result->num_rows > 0): ?>
@@ -556,6 +558,7 @@ if (!$order_placed) {
                 <div class="empty-cart-message">
                     <h2>Your cart is empty</h2>
                     <p>You need to add some items to your cart before checking out.</p>
+                    <a href="orders.php" class="continue-btn">View Orders</a>
                     <a href="browse_parts.php" class="continue-btn">Browse Parts</a>
                 </div>
             <?php endif; ?>

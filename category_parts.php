@@ -198,7 +198,9 @@ $result = $stmt->get_result();
         <div class="main-content">
             <div class="header">
                 <button class="header-btn">Search</button>
-                <a href="cart.php" class="header-btn">View Cart</a>
+                <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'user'): ?>
+                    <a href="cart.php" class="header-btn">View Cart</a>
+                <?php endif; ?>
                 <div class="profile-icon">👤</div>
             </div>
 

@@ -266,7 +266,7 @@ if (!$order_placed) {
             padding: 12px 25px;
             font-size: 1.1rem;
             font-weight: bold;
-            border-radius: 4px;
+            border-radius: 50px;
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;

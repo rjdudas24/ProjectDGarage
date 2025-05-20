@@ -305,7 +305,7 @@ $shipping_fee = 0; // Will be calculated after subtotal is known
 
         <div class="main-content">
             <div class="header">
-                <button class="header-btn">Search</button>
+                <a href="search_parts.php" class="header-btn">Search</a>
                 <div class="profile-icon">👤</div>
             </div>
 

@@ -343,6 +343,7 @@ while ($car = $car_options_result->fetch_assoc()) {
 
         <div class="main-content">
             <div class="header">
+                <a href="search_parts.php" class="header-btn">Search</a>
                 <div class="profile-icon">👤</div>
             </div>
 

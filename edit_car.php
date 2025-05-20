@@ -211,12 +211,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="index.php">Home</a>
                 <a href="browse_parts.php">Browse Parts</a>
                 <a href="new_arrivals.php">New Arrivals</a>
+                <a href="orders.php">Orders</a>
                 <a href="admin_dashboard.php">Admin Dashboard</a>
                 <a href="logout.php">Logout</a>
             </div>
         </div>
 
         <div class="main-content">
+            <div class="header">
+                <div class="profile-icon">👤</div>
+            </div>
+
             <h1>Edit Car</h1>
             
             <?php if (!empty($message)): ?>

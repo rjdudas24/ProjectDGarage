@@ -428,7 +428,7 @@ if (!$order_placed) {
 
         <div class="main-content">
             <div class="header">
-                <button class="header-btn">Search</button>
+                <a href="search_parts.php" class="header-btn">Search</a>
                 <a href="cart.php" class="header-btn">View Cart</a>
                 <div class="profile-icon">👤</div>
             </div>

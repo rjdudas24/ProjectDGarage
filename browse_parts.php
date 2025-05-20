@@ -26,6 +26,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="menu">
                 <a href="index.php">Home</a>
                 <a href="new_arrivals.php">New Arrivals</a>
+                <a href="orders.php">Orders</a>
                 <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
                     <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>

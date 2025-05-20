@@ -32,10 +32,10 @@ require_once 'db_connection.php';
             <div class="menu">
                 <a href="browse_parts.php">Browse Parts</a>
                 <a href="new_arrivals.php">New Arrivals</a>
+                <a href="orders.php">Orders</a>
                 <?php if(isset($_SESSION['account_type']) && $_SESSION['account_type'] === 'admin'): ?>
                     <a href="admin_dashboard.php">Admin Dashboard</a>
                 <?php endif; ?>
-                <a href="orders.php">Orders</a>
                 <a href="logout.php">Logout</a>
             </div>
             <div class="car-list">

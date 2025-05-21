@@ -1,25 +1,33 @@
 <?php
-// Start the session to access session variables
 session_start();
 
-// Unset all session variables
-$_SESSION = array();
-
-// If it's desired to kill the session, also delete the session cookie.
-// Note: This will destroy the session, and not just the session data!
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
-    );
+// Check if user is logged in
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $account_type = $_SESSION['account_type'];
+    
+    // If token exists, delete from database
+    if (isset($_COOKIE['remember_token'])) {
+        require 'db_connection.php';
+        
+        $token = $_COOKIE['remember_token'];
+        $stmt = $connection->prepare("DELETE FROM user_tokens WHERE token = ?");
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        
+        // Remove cookie
+        setcookie('remember_token', '', time() - 3600, '/');
+    }
+    
+    // Clear session variables
+    $_SESSION = array();
+    
+    // Destroy session
+    session_destroy();
+    
+    // logout message
+    setcookie('logout_message', '✅ You have been successfully logged out!', time() + 60, '/');
 }
-
-// Finally, destroy the session
-session_destroy();
-
-// Set a logout message in a temporary cookie (will be shown in login page)
-setcookie('logout_message', 'You have been successfully logged out.', time() + 60, '/');
 
 // Redirect to login page
 header("Location: login.php");
